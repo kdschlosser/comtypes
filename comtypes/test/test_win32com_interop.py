@@ -20,7 +20,7 @@ import win32com.client
 #
 # PyObject *PyCom_PyObjectFromIUnknown(IUnknown *punk, REFIID riid, BOOL bAddRef)
 
-_PyCom_PyObjectFromIUnknown = PyDLL(pythoncom.__file__).PyCom_PyObjectFromIUnknown
+_PyCom_PyObjectFromIUnknown = PyDLL(getattr(pythoncom, '__file__')).PyCom_PyObjectFromIUnknown
 _PyCom_PyObjectFromIUnknown.restype = py_object
 _PyCom_PyObjectFromIUnknown.argtypes = (POINTER(IUnknown), c_void_p, BOOL)
 

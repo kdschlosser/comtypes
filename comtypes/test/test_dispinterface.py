@@ -110,7 +110,7 @@ class Test(unittest.TestCase):
 
     def test_withjscript(self):
         import os
-        jscript = os.path.join(os.path.dirname(__file__), "test_jscript.js")
+        jscript = os.path.join(os.path.dirname(globals()['__file__']), "test_jscript.js")
         errcode = os.system("cscript -nologo %s" % jscript)
         self.failUnlessEqual(errcode, 0)
 

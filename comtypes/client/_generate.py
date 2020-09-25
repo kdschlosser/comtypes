@@ -14,8 +14,8 @@ def _my_import(fullname):
     # helper function to import dotted modules
     import comtypes.gen
     if comtypes.client.gen_dir \
-           and comtypes.client.gen_dir not in comtypes.gen.__path__:
-        comtypes.gen.__path__.append(comtypes.client.gen_dir)
+           and comtypes.client.gen_dir not in getattr(comtypes.gen, '__path__'):
+        getattr(comtypes.gen, '__path__').append(comtypes.client.gen_dir)
     return __import__(fullname, globals(), locals(), ['DUMMY'])
 
 def _name_module(tlib):
@@ -141,8 +141,8 @@ def GetModule(tlib):
     code += "__name__ = 'comtypes.gen.%s'" % modulename
     if comtypes.client.gen_dir is None:
         mod = types.ModuleType("comtypes.gen." + modulename)
-        mod.__file__ = os.path.join(os.path.abspath(comtypes.gen.__path__[0]),
-                                    "<memory>")
+        setattr(mod, '__file__', os.path.join(os.path.abspath(getattr(comtypes.gen, '__path__')[0]),
+                                    "<memory>"))
         exec code in mod.__dict__
         sys.modules["comtypes.gen." + modulename] = mod
         setattr(comtypes.gen, modulename, mod)
@@ -185,8 +185,8 @@ def _CreateWrapper(tlib, pathname=None):
     if comtypes.client.gen_dir is None:
         code = ofi.getvalue()
         mod = types.ModuleType(fullname)
-        mod.__file__ = os.path.join(os.path.abspath(comtypes.gen.__path__[0]),
-                                    "<memory>")
+        setattr(mod, '__file__', os.path.join(os.path.abspath(getattr(comtypes.gen, '__path__')[0]),
+                                    "<memory>"))
         exec code in mod.__dict__
         sys.modules[fullname] = mod
         setattr(comtypes.gen, modname, mod)

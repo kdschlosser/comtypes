@@ -33,7 +33,7 @@ class TypeLib(object):
     def compile(self):
         """Compile and register the typelib"""
         code = str(self)
-        curdir = os.path.dirname(__file__)
+        curdir = os.path.dirname(globals()['__file__'])
         idl_path = os.path.join(curdir, "mylib.idl")
         tlb_path = os.path.join(curdir, "mylib.tlb")
         if not os.path.isfile(idl_path) or open(idl_path, "r").read() != code:

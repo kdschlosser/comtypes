@@ -4,7 +4,7 @@ logging.basicConfig()
 ##logging.basicConfig(level=logging.DEBUG)
 ##logger = logging.getLogger(__name__)
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), r"..\..")))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(globals()['__file__']), r"..\..")))
 
 import ctypes
 import comtypes
@@ -22,7 +22,7 @@ import comtypes.typeinfo
 # in the IDL file
 if not hasattr(sys, "frozen"):
     # pathname of the type library file
-    tlbfile = os.path.join(os.path.dirname(__file__), "TestComServer.tlb")
+    tlbfile = os.path.join(os.path.dirname(globals()['__file__']), "TestComServer.tlb")
     # if running as frozen app (dll or exe), the wrapper should be in
     # the library archive, so we don't need to generate it.
     comtypes.client.GetModule(tlbfile)

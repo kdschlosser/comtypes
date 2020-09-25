@@ -222,13 +222,13 @@ class Generator(object):
                 print >> self.output, "typelib_path = %r" % filename
             else:
                 # relative path; make relative to comtypes.gen.
-                path = self._make_relative_path(filename, comtypes.gen.__path__[0])
+                path = self._make_relative_path(filename, getattr(comtypes.gen, '__path__')[0])
                 print >> self.output, "import os"
                 print >> self.output, "typelib_path = os.path.normpath("
                 print >> self.output, "    os.path.abspath(os.path.join(os.path.dirname(__file__),"
                 print >> self.output, "                                 %r)))" % path
 
-                p = os.path.normpath(os.path.abspath(os.path.join(comtypes.gen.__path__[0],
+                p = os.path.normpath(os.path.abspath(os.path.join(getattr(comtypes.gen, '__path__')[0],
                                                                   path)))
                 assert os.path.isfile(p)
         print >> self.imports, "_lcid = 0 # change this if required"

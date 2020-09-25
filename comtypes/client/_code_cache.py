@@ -39,7 +39,7 @@ def _find_gen_dir():
     """
     _create_comtypes_gen_package()
     from comtypes import gen
-    gen_path = _ensure_list(gen.__path__)
+    gen_path = _ensure_list(getattr(gen, '__path__'))
     if not _is_writeable(gen_path):
         # check type of executable image to determine a subdirectory
         # where generated modules are placed.
@@ -93,7 +93,7 @@ def _create_comtypes_gen_package():
         import comtypes
         logger.info("Could not import comtypes.gen, trying to create it.")
         try:
-            comtypes_path = os.path.abspath(os.path.join(comtypes.__path__[0], "gen"))
+            comtypes_path = os.path.abspath(os.path.join(getattr(comtypes, '__path__')[0], "gen"))
             if not os.path.isdir(comtypes_path):
                 os.mkdir(comtypes_path)
                 logger.info("Created comtypes.gen directory: '%s'", comtypes_path)
@@ -107,7 +107,7 @@ def _create_comtypes_gen_package():
             logger.info("Creating comtypes.gen package failed: %s", details)
             module = sys.modules["comtypes.gen"] = types.ModuleType("comtypes.gen")
             comtypes.gen = module
-            comtypes.gen.__path__ = []
+            setattr(comtypes.gen, '__path__', [])
             logger.info("Created a memory-only package.")
 
 def _is_writeable(path):

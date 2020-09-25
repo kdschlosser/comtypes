@@ -77,7 +77,7 @@ def find_package_modules(package, mask):
             if fnmatch.fnmatchcase(fnm, mask):
                 yield os.path.splitext(fnm)[0].replace(os.path.sep, ".")
     else:
-        path = package.__path__[0]
+        path = getattr(package, '__path__')[0]
         for fnm in os.listdir(path):
             if fnmatch.fnmatchcase(fnm, mask):
                 yield "%s.%s" % (package.__name__, os.path.splitext(fnm)[0])

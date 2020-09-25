@@ -463,7 +463,7 @@ if is_resource_enabled("pythoncom"):
         # contained in VARIANTs, and check for consistency with the
         # comtypes code.
 
-        _dll = PyDLL(pythoncom.__file__)
+        _dll = PyDLL(getattr(pythoncom, '__file__'))
 
         # c:/sf/pywin32/com/win32com/src/oleargs.cpp 213
         # PyObject *PyCom_PyObjectFromVariant(const VARIANT *var)

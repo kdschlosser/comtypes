@@ -207,7 +207,7 @@ class Registrar(object):
             windll.kernel32.GetModuleFileNameA(handle, buf, sizeof(buf))
             return buf[:]
         import _ctypes
-        return _ctypes.__file__
+        return getattr(_ctypes, '__file__')
 
     def _get_full_classname(self, cls):
         """Return <modulename>.<classname> for 'cls'."""
@@ -219,7 +219,7 @@ class Registrar(object):
     def _get_pythonpath(self, cls):
         """Return the filesystem path of the module containing 'cls'."""
         modname = cls.__module__
-        dirname = os.path.dirname(sys.modules[modname].__file__)
+        dirname = os.path.dirname(getattr(sys.modules[modname], '__file__'))
         return os.path.abspath(dirname)
 
     def _registry_entries(self, cls):
@@ -290,7 +290,7 @@ class Registrar(object):
             if not hasattr(sys, "frozen"):
                 if not __debug__:
                     exe = "%s -O" % exe
-                script = os.path.abspath(sys.modules[cls.__module__].__file__)
+                script = os.path.abspath(getattr(sys.modules[cls.__module__], '__file__'))
                 if " " in script:
                     script = '"%s"' % script
                 append(HKCR, "CLSID\\%s\\LocalServer32" % reg_clsid, "", "%s %s" % (exe, script))

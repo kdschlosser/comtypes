@@ -22,7 +22,7 @@ class Test(unittest.TestCase):
         del sys.modules["comtypes.gen"]
         del comtypes.gen
         mod = sys.modules["comtypes.gen"] = types.ModuleType("comtypes.gen")
-        mod.__path__ = []
+        setattr(mod, '__path__', [])
         comtypes.gen = mod
 
     def tearDown(self):

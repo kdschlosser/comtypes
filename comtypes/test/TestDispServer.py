@@ -5,7 +5,7 @@ logging.basicConfig()
 ##logger = logging.getLogger(__name__)
 
 # Add comtypes to sys.path (if this is run from a SVN checkout)
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), r"..\..")))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(globals()['__file__']), r"..\..")))
 
 import comtypes
 from comtypes.hresult import S_OK
@@ -19,7 +19,7 @@ import comtypes.server.connectionpoints
 if not hasattr(sys, "frozen"):
     import comtypes.client
     # pathname of the type library file
-    tlbfile = os.path.join(os.path.dirname(__file__), "TestDispServer.tlb")
+    tlbfile = os.path.join(os.path.dirname(globals()['__file__']), "TestDispServer.tlb")
     # if running as frozen app (dll or exe), the wrapper should be in
     # the library archive, so we don't need to generate it.
     comtypes.client.GetModule(tlbfile)

@@ -6,7 +6,7 @@ from comtypes.patcher import Patch
 
 # ./urlhist.tlb was downloaded somewhere from the internet (?)
 
-GetModule(os.path.join(os.path.dirname(__file__), "urlhist.tlb"))
+GetModule(os.path.join(os.path.dirname(globals()['__file__']), "urlhist.tlb"))
 from comtypes.gen import urlhistLib
 
 # The pwcsTitle and pwcsUrl fields of the _STATURL structure must be
